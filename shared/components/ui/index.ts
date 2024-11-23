@@ -7,3 +7,15 @@ export { Popover } from "./popover";
 export { Select } from "./select";
 export { Skeleton } from "./skeleton";
 export { Slider } from "./slider";
+export {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetOverlay,
+  SheetPortal,
+  SheetTitle,
+  SheetTrigger,
+} from "./sheet";

@@ -15,4 +15,6 @@ export { PizzaImage } from "./pizza-image";
 export { Variants } from "./variants";
 export { ChooseProductFrom } from "./choose-product-from";
 export { IngredientItem } from "./ingredient-item";
+export { CartButton } from "./cart-button";
+export { CartDrawer } from "./cart-drawer";
 export * from "./modals";
