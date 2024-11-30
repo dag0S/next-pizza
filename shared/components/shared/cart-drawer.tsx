@@ -22,8 +22,16 @@ interface Props {
 }
 
 export const CartDrawer: FC<Props> = ({ children }) => {
-  const [fetchCartItems, totalAmount, items] = useCartStore((state) => [
+  const [
+    fetchCartItems,
+    updateItemQuantity,
+    removeCartItem,
+    totalAmount,
+    items,
+  ] = useCartStore((state) => [
     state.fetchCartItems,
+    state.updateItemQuantity,
+    state.removeCartItem,
     state.totalAmount,
     state.items,
   ]);
@@ -31,14 +39,23 @@ export const CartDrawer: FC<Props> = ({ children }) => {
   useEffect(() => {
     fetchCartItems();
   }, []);
-  // 11 52
+
+  const onClickCountButton = (
+    id: number,
+    quantity: number,
+    type: "plus" | "minus"
+  ) => {
+    const newQuantity = type == "plus" ? quantity + 1 : quantity - 1;
+    updateItemQuantity(id, newQuantity);
+  };
+
   return (
     <Sheet>
       <SheetTrigger asChild>{children}</SheetTrigger>
       <SheetContent className="flex flex-col justify-between pb-0 bg-[#f4f1ee]">
         <SheetHeader>
           <SheetTitle>
-            В корзине <span className="font-bold">3 товара</span>
+            В корзине <span className="font-bold">{items.length} товара</span>
           </SheetTitle>
         </SheetHeader>
 
@@ -46,6 +63,7 @@ export const CartDrawer: FC<Props> = ({ children }) => {
           <div className="mb-2">
             {items.map((item) => (
               <CartDrawerItem
+                className="mb-2"
                 key={item.id}
                 id={item.id}
                 imageUrl={item.imageUrl}
@@ -57,6 +75,10 @@ export const CartDrawer: FC<Props> = ({ children }) => {
                   item.pizzaSize as PizzaSize
                 )}
                 quantity={item.quantity}
+                onClickCountButton={(type) =>
+                  onClickCountButton(item.id, item.quantity, type)
+                }
+                onClickRemove={() => removeCartItem(item.id)}
               />
             ))}
           </div>

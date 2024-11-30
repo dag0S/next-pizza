@@ -19,7 +19,8 @@ interface Props {
   imageUrl: string;
   ingredients: Ingredient[];
   items: ProductWithRelations["items"];
-  onClickAddCart?: VoidFunction;
+  onSubmit: (itemId: number, ingredients: number[]) => void;
+  loading: boolean;
 }
 
 export const ChoosePizzaFrom: FC<Props> = ({
@@ -28,7 +29,8 @@ export const ChoosePizzaFrom: FC<Props> = ({
   ingredients,
   name,
   items,
-  onClickAddCart,
+  onSubmit,
+  loading,
 }) => {
   const {
     size,
@@ -38,6 +40,7 @@ export const ChoosePizzaFrom: FC<Props> = ({
     setSize,
     setType,
     addIngredient,
+    currentItemId,
   } = usePizzaOptions(items);
 
   const { textDetails, totalPrice } = getPizzaDetails(
@@ -49,7 +52,9 @@ export const ChoosePizzaFrom: FC<Props> = ({
   );
 
   const handleClickAdd = () => {
-    onClickAddCart?.();
+    if (currentItemId) {
+      onSubmit(currentItemId, Array.from(selectedIngredients));
+    }
   };
 
   return (
@@ -71,7 +76,7 @@ export const ChoosePizzaFrom: FC<Props> = ({
           />
         </div>
         <div className="bg-gray-50 p-5 rounded-md h-[340px] overflow-auto scrollbar">
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-3 gap-4">
             {ingredients.map((ingredient) => (
               <IngredientItem
                 key={ingredient.id}
@@ -85,6 +90,7 @@ export const ChoosePizzaFrom: FC<Props> = ({
           </div>
         </div>
         <Button
+          loading={loading}
           className="h-[55px] px-10 text-base rounded-[18px] w-full mt-10"
           onClick={handleClickAdd}
         >
