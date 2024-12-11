@@ -14,7 +14,7 @@ interface Props {
   imageUrl: string;
   ingredients: Ingredient[];
 }
-// 14 36
+
 export const ProductCard: FC<Props> = ({
   className,
   id,
