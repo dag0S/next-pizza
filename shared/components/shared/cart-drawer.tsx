@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, ReactNode, useEffect } from "react";
+import { FC, ReactNode, useState } from "react";
 import {
   Button,
   Sheet,
@@ -14,34 +14,19 @@ import {
 import Link from "next/link";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { CartDrawerItem } from "./cart-drawer-item";
-import { useCartStore } from "@/shared/store";
 import { cn, getCartItemDetails } from "@/shared/lib";
 import { PizzaSize, PizzaType } from "@/shared/constants/pizza";
 import Image from "next/image";
 import { Title } from "./title";
+import { useCart } from "@/shared/hooks";
 
 interface Props {
   children: ReactNode;
 }
 
 export const CartDrawer: FC<Props> = ({ children }) => {
-  const [
-    fetchCartItems,
-    updateItemQuantity,
-    removeCartItem,
-    totalAmount,
-    items,
-  ] = useCartStore((state) => [
-    state.fetchCartItems,
-    state.updateItemQuantity,
-    state.removeCartItem,
-    state.totalAmount,
-    state.items,
-  ]);
-
-  useEffect(() => {
-    fetchCartItems();
-  }, []);
+  const { items, removeCartItem, totalAmount, updateItemQuantity } = useCart();
+  const [redirecting, setRedirecting] = useState(false);
 
   const onClickCountButton = (
     id: number,
@@ -133,8 +118,13 @@ export const CartDrawer: FC<Props> = ({ children }) => {
                     </span>
                     <span className="font-bold text-lg">{totalAmount} ₽</span>
                   </div>
-                  <Link href="/cart">
-                    <Button type="submit" className="w-full h-12 text-base">
+                  <Link href="/checkout">
+                    <Button
+                      loading={redirecting}
+                      onClick={() => setRedirecting(true)}
+                      type="submit"
+                      className="w-full h-12 text-base"
+                    >
                       Оформить заказ
                       <ArrowRight className="w-5 ml-2" />
                     </Button>
