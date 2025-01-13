@@ -3,7 +3,9 @@
 import { prisma } from "@/prisma/prisma-client";
 import { CheckoutFormValues, PayOrderTemplate } from "@/shared/components";
 import { createPayment, sendEmail } from "@/shared/lib";
-import { OrderStatus } from "@prisma/client";
+import { getUserSession } from "@/shared/lib/get-user-session";
+import { OrderStatus, Prisma } from "@prisma/client";
+import { hashSync } from "bcrypt";
 import { cookies } from "next/headers";
 
 export async function createOrder(data: CheckoutFormValues) {
@@ -107,3 +109,66 @@ export async function createOrder(data: CheckoutFormValues) {
     console.log("[CreateOrder] Server error", error);
   }
 }
+
+export async function updateUserInfo(body: Prisma.UserUpdateInput) {
+  try {
+    const currentUser = await getUserSession();
+
+    if (!currentUser) {
+      throw new Error("Пользователь не найден");
+    }
+
+    const findUser = await prisma.user.findFirst({
+      where: {
+        id: +currentUser.id,
+      },
+    });
+
+    await prisma.user.update({
+      where: {
+        id: +currentUser.id,
+      },
+      data: {
+        fullName: body.fullName,
+        email: body.email,
+        password: body.password
+          ? hashSync(body.password as string, 10)
+          : findUser?.password,
+      },
+    });
+  } catch (error) {
+    console.log("Error [UPDATE_USER]", error);
+    throw error;
+  }
+}
+
+export async function registerUser(body: Prisma.UserCreateInput) {
+  try {
+    const user = await prisma.user.findFirst({
+      where: {
+        email: body.email,
+      },
+    });
+
+    if (user) {
+      if (!user.verified) {
+        throw new Error("Почта не подтвержена");
+      }
+
+      throw new Error("Пользователь уже существует");
+    }
+
+    const cretedUser = await prisma.user.create({
+      data: {
+        fullName: body.fullName,
+        email: body.email,
+        password: hashSync(body.password, 10),
+      },
+    });
+  } catch (error) {
+    console.error("Error [CREATE_USER]", error);
+    throw error;
+  }
+}
+
+// 21 46

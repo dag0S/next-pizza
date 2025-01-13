@@ -62,11 +62,9 @@ export const Header: FC<Props> = ({
           />
           <ProfileButton onClickSignIn={() => setOpenAuthModal(true)} />
 
-        {hasCart && <CartButton />}
+          {hasCart && <CartButton />}
         </div>
       </Container>
     </header>
   );
 };
-
-// 20 24
