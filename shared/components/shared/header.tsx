@@ -7,7 +7,7 @@ import { cn } from "@/shared/lib/utils";
 import Link from "next/link";
 import { SearchInput } from "./search-input";
 import { CartButton } from "./cart-button";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
 import { ProfileButton } from "./profile-button";
 import { AuthModal } from "./modals";
@@ -23,13 +23,25 @@ export const Header: FC<Props> = ({
   hasSearch = true,
   hasCart = true,
 }) => {
+  const router = useRouter();
   const searchParams = useSearchParams();
   const [openAuthModal, setOpenAuthModal] = useState(false);
 
   useEffect(() => {
+    let toastMessage = "";
+
     if (searchParams.has("paid")) {
+      toastMessage = "Заказ успешно оплачен! Информация отправлена на почту.";
+    }
+
+    if (searchParams.has("verified")) {
+      toastMessage = "Почта подтверждена!";
+    }
+
+    if (toastMessage) {
       setTimeout(() => {
-        toast.success("Заказ успешно оплачен! Информация отправлена на почту.");
+        router.replace("/");
+        toast.success(toastMessage);
       }, 500);
     }
   }, []);

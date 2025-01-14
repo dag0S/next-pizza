@@ -1,7 +1,11 @@
 "use server";
 
 import { prisma } from "@/prisma/prisma-client";
-import { CheckoutFormValues, PayOrderTemplate } from "@/shared/components";
+import {
+  CheckoutFormValues,
+  PayOrderTemplate,
+  VerificationUser,
+} from "@/shared/components";
 import { createPayment, sendEmail } from "@/shared/lib";
 import { getUserSession } from "@/shared/lib/get-user-session";
 import { OrderStatus, Prisma } from "@prisma/client";
@@ -158,17 +162,32 @@ export async function registerUser(body: Prisma.UserCreateInput) {
       throw new Error("Пользователь уже существует");
     }
 
-    const cretedUser = await prisma.user.create({
+    const createdUser = await prisma.user.create({
       data: {
         fullName: body.fullName,
         email: body.email,
         password: hashSync(body.password, 10),
       },
     });
+
+    const code = Math.floor(100000 + Math.random() * 900000).toString();
+
+    await prisma.verificationCode.create({
+      data: {
+        code,
+        userId: createdUser.id,
+      },
+    });
+
+    await sendEmail(
+      createdUser.email,
+      `Next Pizz / Подтверждение регистрации`,
+      VerificationUser({
+        code,
+      })
+    );
   } catch (error) {
     console.error("Error [CREATE_USER]", error);
     throw error;
   }
 }
-
-// 21 46
