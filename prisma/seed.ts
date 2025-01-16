@@ -73,6 +73,83 @@ async function up() {
     },
   });
 
+  const pizza4 = await prisma.product.create({
+    data: {
+      name: "Ветчина и сыр",
+      imageUrl: "/pizzas/pizza-4.avif",
+      categoryId: 1,
+      ingredients: {
+        connect: ingredients.slice(10, 40),
+      },
+    },
+  });
+
+  const pizza5 = await prisma.product.create({
+    data: {
+      name: "Аррива!",
+      imageUrl: "/pizzas/pizza-5.avif",
+      categoryId: 1,
+      ingredients: {
+        connect: ingredients.slice(10, 12),
+      },
+    },
+  });
+
+  const pizza6 = await prisma.product.create({
+    data: {
+      name: "Четыре сезона",
+      imageUrl: "/pizzas/pizza-6.avif",
+      categoryId: 1,
+      ingredients: {
+        connect: ingredients.slice(0, 11),
+      },
+    },
+  });
+
+  const pizza7 = await prisma.product.create({
+    data: {
+      name: "Жюльен",
+      imageUrl: "/pizzas/pizza-7.avif",
+      categoryId: 1,
+      ingredients: {
+        connect: ingredients.slice(2, 7),
+      },
+    },
+  });
+
+  const pizza8 = await prisma.product.create({
+    data: {
+      name: "Сырный цыпленок",
+      imageUrl: "/pizzas/pizza-8.avif",
+      categoryId: 1,
+      ingredients: {
+        connect: ingredients.slice(2, 7),
+      },
+    },
+  });
+
+  const pizza9 = await prisma.product.create({
+    data: {
+      name: "Диабло 🌶️🌶️",
+      imageUrl: "/pizzas/pizza-9.avif",
+      categoryId: 1,
+      ingredients: {
+        connect: ingredients.slice(2, 7),
+      },
+    },
+  });
+
+  const pizza10 = await prisma.product.create({
+    data: {
+      name: "Гавайская",
+      imageUrl: "/pizzas/pizza-10.avif",
+      categoryId: 1,
+      ingredients: {
+        connect: ingredients.slice(2, 5),
+      },
+    },
+  });
+
   await prisma.productItem.createManyAndReturn({
     data: [
       // Пепперони фреш
@@ -146,6 +223,139 @@ async function up() {
       },
       {
         productId: pizza3.id,
+        pizzaType: 2,
+        size: 40,
+        price: randomNumber(190, 600),
+      },
+      // Ветчина и сыр
+      {
+        productId: pizza4.id,
+        pizzaType: 1,
+        size: 20,
+        price: randomNumber(190, 600),
+      },
+      {
+        productId: pizza4.id,
+        pizzaType: 2,
+        size: 30,
+        price: randomNumber(190, 600),
+      },
+      {
+        productId: pizza4.id,
+        pizzaType: 2,
+        size: 40,
+        price: randomNumber(190, 600),
+      },
+      // Аррива!
+      {
+        productId: pizza5.id,
+        pizzaType: 1,
+        size: 20,
+        price: randomNumber(190, 600),
+      },
+      {
+        productId: pizza5.id,
+        pizzaType: 2,
+        size: 30,
+        price: randomNumber(190, 600),
+      },
+      {
+        productId: pizza5.id,
+        pizzaType: 2,
+        size: 40,
+        price: randomNumber(190, 600),
+      },
+      // Четыре сезона
+      {
+        productId: pizza6.id,
+        pizzaType: 1,
+        size: 20,
+        price: randomNumber(190, 600),
+      },
+      {
+        productId: pizza6.id,
+        pizzaType: 2,
+        size: 30,
+        price: randomNumber(190, 600),
+      },
+      {
+        productId: pizza6.id,
+        pizzaType: 2,
+        size: 40,
+        price: randomNumber(190, 600),
+      },
+      // Жюльен
+      {
+        productId: pizza7.id,
+        pizzaType: 1,
+        size: 20,
+        price: randomNumber(190, 600),
+      },
+      {
+        productId: pizza7.id,
+        pizzaType: 2,
+        size: 30,
+        price: randomNumber(190, 600),
+      },
+      {
+        productId: pizza7.id,
+        pizzaType: 2,
+        size: 40,
+        price: randomNumber(190, 600),
+      },
+      // Сырный цыпленок
+      {
+        productId: pizza8.id,
+        pizzaType: 1,
+        size: 20,
+        price: randomNumber(190, 600),
+      },
+      {
+        productId: pizza8.id,
+        pizzaType: 2,
+        size: 30,
+        price: randomNumber(190, 600),
+      },
+      {
+        productId: pizza8.id,
+        pizzaType: 2,
+        size: 40,
+        price: randomNumber(190, 600),
+      },
+      // Диабло
+      {
+        productId: pizza9.id,
+        pizzaType: 1,
+        size: 20,
+        price: randomNumber(190, 600),
+      },
+      {
+        productId: pizza9.id,
+        pizzaType: 2,
+        size: 30,
+        price: randomNumber(190, 600),
+      },
+      {
+        productId: pizza9.id,
+        pizzaType: 2,
+        size: 40,
+        price: randomNumber(190, 600),
+      },
+      // Гавайская
+      {
+        productId: pizza10.id,
+        pizzaType: 1,
+        size: 20,
+        price: randomNumber(190, 600),
+      },
+      {
+        productId: pizza10.id,
+        pizzaType: 2,
+        size: 30,
+        price: randomNumber(190, 600),
+      },
+      {
+        productId: pizza10.id,
         pizzaType: 2,
         size: 40,
         price: randomNumber(190, 600),
@@ -251,28 +461,22 @@ async function up() {
   await prisma.story.createMany({
     data: [
       {
-        previewImageUrl:
-          "https://cdn.inappstory.ru/story/xep/xzh/zmc/cr4gcw0aselwvf628pbmj3j/custom_cover/logo-350x440.webp?k=IgAAAAAAAAAE&v=3101815496",
+        previewImageUrl: "/stories/story-1.webp",
       },
       {
-        previewImageUrl:
-          "https://cdn.inappstory.ru/story/km2/9gf/jrn/sb7ls1yj9fe5bwvuwgym73e/custom_cover/logo-350x440.webp?k=IgAAAAAAAAAE&v=3074015640",
+        previewImageUrl: "/stories/story-2.webp",
       },
       {
-        previewImageUrl:
-          "https://cdn.inappstory.ru/story/quw/acz/zf5/zu37vankpngyccqvgzbohj1/custom_cover/logo-350x440.webp?k=IgAAAAAAAAAE&v=1336215020",
+        previewImageUrl: "/stories/story-3.webp",
       },
       {
-        previewImageUrl:
-          "https://cdn.inappstory.ru/story/7oc/5nf/ipn/oznceu2ywv82tdlnpwriyrq/custom_cover/logo-350x440.webp?k=IgAAAAAAAAAE&v=38903958",
+        previewImageUrl: "/stories/story-4.webp",
       },
       {
-        previewImageUrl:
-          "https://cdn.inappstory.ru/story/q0t/flg/0ph/xt67uw7kgqe9bag7spwkkyw/custom_cover/logo-350x440.webp?k=IgAAAAAAAAAE&v=2941222737",
+        previewImageUrl: "/stories/story-5.webp",
       },
       {
-        previewImageUrl:
-          "https://cdn.inappstory.ru/story/lza/rsp/2gc/xrar8zdspl4saq4uajmso38/custom_cover/logo-350x440.webp?k=IgAAAAAAAAAE&v=4207486284",
+        previewImageUrl: "/stories/story-6.webp",
       },
     ],
   });
@@ -281,28 +485,23 @@ async function up() {
     data: [
       {
         storyId: 1,
-        sourceUrl:
-          "https://cdn.inappstory.ru/file/dd/yj/sx/oqx9feuljibke3mknab7ilb35t.webp?k=IgAAAAAAAAAE",
+        sourceUrl: "/storyItems/story-1-1.webp",
       },
       {
         storyId: 1,
-        sourceUrl:
-          "https://cdn.inappstory.ru/file/jv/sb/fh/io7c5zarojdm7eus0trn7czdet.webp?k=IgAAAAAAAAAE",
+        sourceUrl: "/storyItems/story-1-2.webp",
       },
       {
         storyId: 1,
-        sourceUrl:
-          "https://cdn.inappstory.ru/file/ts/p9/vq/zktyxdxnjqbzufonxd8ffk44cb.webp?k=IgAAAAAAAAAE",
+        sourceUrl: "/storyItems/story-1-3.webp",
       },
       {
         storyId: 1,
-        sourceUrl:
-          "https://cdn.inappstory.ru/file/ur/uq/le/9ufzwtpdjeekidqq04alfnxvu2.webp?k=IgAAAAAAAAAE",
+        sourceUrl: "/storyItems/story-1-4.webp",
       },
       {
         storyId: 1,
-        sourceUrl:
-          "https://cdn.inappstory.ru/file/sy/vl/c7/uyqzmdojadcbw7o0a35ojxlcul.webp?k=IgAAAAAAAAAE",
+        sourceUrl: "/storyItems/story-1-5.webp",
       },
     ],
   });
