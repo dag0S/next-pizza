@@ -1,12 +1,14 @@
 "use client";
 
+import { X } from "lucide-react";
+import ReactStories from "react-insta-stories";
+import Image from "next/image";
+import { type FC, useEffect, useState } from "react";
+
 import { Api } from "@/shared/services/api-client";
-import { FC, useEffect, useState } from "react";
 import { Container } from "./container";
 import { cn } from "@/shared/lib";
 import { IStory } from "@/shared/services/stories";
-import { X } from "lucide-react";
-import ReactStories from "react-insta-stories";
 
 interface Props {
   className?: string;
@@ -36,7 +38,7 @@ export const Stories: FC<Props> = ({ className }) => {
 
   return (
     <Container
-      className={cn("flex items-center justify-between gap-2 my-10", className)}
+      className={cn("flex items-center justify-between gap-2 my-10 overflow-auto", className)}
     >
       {stories.length === 0 &&
         [...Array(6)].map((_, index) => (
@@ -46,7 +48,7 @@ export const Stories: FC<Props> = ({ className }) => {
           />
         ))}
       {stories.map((story) => (
-        <img
+        <Image
           key={story.id}
           onClick={() => onClickStory(story)}
           className="rounded-md cursor-pointer"

@@ -1,8 +1,9 @@
 import { useSession } from "next-auth/react";
-import { FC } from "react";
-import { Button } from "../ui";
-import { CircleUser, User } from "lucide-react";
 import Link from "next/link";
+import type { FC } from "react";
+import { CircleUser, User } from "lucide-react";
+
+import { Button } from "../ui";
 
 interface Props {
   className?: string;

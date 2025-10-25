@@ -1,17 +1,21 @@
 "use client";
 
-import { Button, Dialog, DialogContent } from "@/shared/components/ui";
 import { signIn } from "next-auth/react";
 import { FC, useState } from "react";
+import Image from "next/image";
+
+import { Button, Dialog, DialogContent } from "@/shared/components/ui";
 import { LoginForm } from "./forms/login-form";
 import { RegisterForm } from "./forms/register-form";
+import { cn } from "@/shared/lib";
 
 interface Props {
   open: boolean;
   onClose: () => void;
+  className?: string;
 }
 
-export const AuthModal: FC<Props> = ({ open, onClose }) => {
+export const AuthModal: FC<Props> = ({ open, onClose, className }) => {
   const [type, setType] = useState<"login" | "register">("login");
 
   const onSwitchType = () => {
@@ -41,9 +45,9 @@ export const AuthModal: FC<Props> = ({ open, onClose }) => {
               });
             }}
             type="button"
-            className="gap-2 h-12 p-2 flex-1"
+            className={cn("gap-2 h-12 p-2 flex-1", className)}
           >
-            <img src="/github.svg" alt="GitHub" className="w-6 h-6" />
+            <Image src="/github.svg" alt="GitHub" width={24} height={24} />
             GitHub
           </Button>
           <Button
@@ -57,7 +61,7 @@ export const AuthModal: FC<Props> = ({ open, onClose }) => {
             type="button"
             className="gap-2 h-12 p-2 flex-1"
           >
-            <img src="/google.svg" alt="Google" className="w-6 h-6" />
+            <Image src="/google.svg" alt="Google" width={24} height={24} />
             Google
           </Button>
         </div>

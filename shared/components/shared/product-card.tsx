@@ -1,10 +1,12 @@
-import { cn } from "@/shared/lib/utils";
+import type { FC } from "react";
 import Link from "next/link";
-import { FC } from "react";
-import { Title } from "./title";
+import Image from "next/image";
 import { Plus } from "lucide-react";
-import { Button } from "../ui";
 import { Ingredient } from "@prisma/client";
+
+import { cn } from "@/shared/lib/utils";
+import { Title } from "./title";
+import { Button } from "../ui";
 
 interface Props {
   className?: string;
@@ -26,11 +28,11 @@ export const ProductCard: FC<Props> = ({
   return (
     <div className={cn("", className)}>
       <Link href={`/product/${id}`} scroll={false}>
-        <div className="flex justify-center p-6 bg-secondary rounded-lg h-[260px]">
-          <img className="w-[215px] h-[215px]" src={imageUrl} alt={name} />
+        <div className="flex justify-center p-6 bg-secondary rounded-lg max-h-[260px]">
+          <Image width={215} height={215} src={imageUrl} alt={name} />
         </div>
         <Title text={name} size="sm" className="mb-1 mt-3 font-bold" />
-        <p className="text-sm text-gray-400">
+        <p className="text-sm text-gray-400 line-clamp-2">
           {ingredients.map((ingredient) => ingredient.name).join(", ")}
         </p>
         <div className="flex justify-between items-center mt-4">

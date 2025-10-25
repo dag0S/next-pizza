@@ -1,5 +1,7 @@
+import Image from "next/image";
+import type { FC } from "react";
+
 import { cn } from "@/shared/lib/utils";
-import { FC } from "react";
 
 interface Props {
   className?: string;
@@ -15,9 +17,11 @@ export const PizzaImage: FC<Props> = ({ className, imageUrl, size }) => {
         className
       )}
     >
-      <img
+      <Image
         src={imageUrl}
-        alt="logo"
+        alt="pizza"
+        width={500}
+        height={500}
         className={cn(
           "relative left-2 top-2 transition-all z-10 duration-300",
           {

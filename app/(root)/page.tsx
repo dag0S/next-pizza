@@ -1,3 +1,5 @@
+import { Suspense } from "react";
+
 import {
   Container,
   Filters,
@@ -6,7 +8,6 @@ import {
   Title,
   TopBar,
 } from "@/shared/components/shared";
-import { Suspense } from "react";
 import { findPizzas } from "@/shared/lib";
 import { GetSearchParams } from "@/shared/lib/find-pizzas";
 
@@ -15,7 +16,7 @@ async function HomePage({ searchParams }: { searchParams: GetSearchParams }) {
 
   return (
     <>
-      <Container className="mt-10">
+      <Container className="mt-4 md:mt-10">
         <Title text="Все пиццы" size="lg" className="font-extrabold" />
       </Container>
       <TopBar
@@ -26,7 +27,7 @@ async function HomePage({ searchParams }: { searchParams: GetSearchParams }) {
       <Stories />
       <Container className="mt-10 pb-14">
         <div className="flex gap-[80px]">
-          <div className="w-[250px]">
+          <div className="w-[250px] hidden lg:block">
             <Suspense>
               <Filters />
             </Suspense>

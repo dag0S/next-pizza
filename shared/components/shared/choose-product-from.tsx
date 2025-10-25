@@ -1,5 +1,7 @@
+import type { FC } from "react";
+import Image from "next/image";
+
 import { cn } from "@/shared/lib/utils";
-import { FC } from "react";
 import { Title } from "./title";
 import { Button } from "../ui";
 
@@ -21,15 +23,16 @@ export const ChooseProductFrom: FC<Props> = ({
   loading,
 }) => {
   return (
-    <div className={cn("flex flex-1", className)}>
+    <div className={cn("flex flex-1 flex-col md:flex-row w-full", className)}>
       <div className="flex items-center justify-center flex-1 relative w-full">
-        <img
+        <Image
           src={imageUrl}
           alt={name}
-          className="relative left-2 top-2 transition-all z-10 duration-300 w-[350px] h-[350px]"
+          width={350}
+          height={350}
         />
       </div>
-      <div className="w-[490px] bg-[#fcfcfc] p-7">
+      <div className="w-full md:w-1/2 bg-[#fcfcfc] p-2 md:p-7">
         <Title text={name} size="md" className="font-extrabold mb-1" />
         <Button
           loading={loading}

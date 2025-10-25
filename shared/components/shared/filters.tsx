@@ -1,7 +1,8 @@
 "use client";
 
+import type { FC } from "react";
+
 import { cn } from "@/shared/lib/utils";
-import { FC } from "react";
 import { Title } from "./title";
 import { Input } from "../ui";
 import { RangeSlider } from "./range-slider";

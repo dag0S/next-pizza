@@ -1,8 +1,9 @@
 "use client";
 
-import { FC } from "react";
-import { Button } from "../ui";
+import type { FC } from "react";
 import { ArrowRight, ShoppingCart } from "lucide-react";
+
+import { Button } from "../ui";
 import { cn } from "@/shared/lib";
 import { CartDrawer } from "./cart-drawer";
 import { useCartStore } from "@/shared/store";
