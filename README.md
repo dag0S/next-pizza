@@ -1,6 +1,6 @@
 # Next pizza (Онлайн пиццерия)
 
-> Интернет магазин пиццерии на NextJS (копия DoDo pizzas). Fullstack веб-приложение полность на NextJS. Оплата через ЮKassa, фильтрация, авторизация (JWT). Отпрвка уведомлений на почту.
+> Интернет магазин пиццерии на NextJS (копия DoDo pizzas). Fullstack веб-приложение полность на NextJS. Оплата через ЮKassa, фильтрация, авторизация (JWT). Отпрвка уведомлений на почту
 
 ![Preview Screenshot](https://github.com/dag0S/next-pizza/blob/master/public/screenshots/home.png)
 
